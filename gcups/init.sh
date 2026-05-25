@@ -8,7 +8,7 @@ export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/dbus-session)
 service dbus start
 
 echo "GCUPS running on port: $GCUPS_HTTP_PORT"
-echo "Default webUI password: $GCUPS_PASSWORD"
+echo "Default webUI password: gcups123"
 echo -n "Running gcups " && xvfb-run /opt/gcups/gcups --version --no-sandbox
 
 xvfb-run /opt/gcups/gcups --no-sandbox

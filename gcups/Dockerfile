@@ -23,12 +23,11 @@ RUN set -eux; \
     useradd -m gcups && chown -R gcups:gcups /opt/gcups && \
     mkdir -p /var/run/dbus && chown -R gcups:gcups /var/run/dbus
 
-COPY --chown=gcups:gcups init.sh populate-db.py db.txt /opt/
+COPY --chown=gcups:gcups gcups/init.sh gcups/populate-db.py gcups/db.txt /opt/
 WORKDIR /opt
 RUN python3 populate-db.py
 
 ENV GCUPS_HTTP_PORT=8080
-ENV GCUPS_PASSWORD=gcups123
 EXPOSE $GCUPS_HTTP_PORT
 
 USER gcups
