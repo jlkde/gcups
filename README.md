@@ -34,7 +34,7 @@ For testing purposes (to see if this thing works on your machine) you can run th
 1. Run the [udev.sh](udev.sh) file as root (sets up udev rules on host)
 
 2. Run the container image as privileged
-`docker run --privileged -p 0.0.0.0:8080:8080 ghcr.io/fajfer/gcups:1.1.11`  
+`docker run --privileged -p 0.0.0.0:8080:8080 jlkde/gcups:1.1.11`
 
 Image exposes port **8080** and the default password is **gcups123**
 
@@ -46,7 +46,7 @@ The prerequisites are to:
 To setup udev rules, you need to run the [udev.sh](udev.sh) script on your host machine. The rules are taken from the official gcups apt package preinstall scripts.
 
 Next, you need to attach proper USB device:  
-`docker run --device=/dev/bus/usb/001/011 -p 0.0.0.0:8080:8080 ghcr.io/fajfer/gcups:1.1.11`  
+`docker run --device=/dev/bus/usb/001/011 -p 0.0.0.0:8080:8080 jlkde/gcups:1.1.11`
 How to find which device to use? Read [USB detection](#usb-detection)
 
 You can also run it via [Docker-compose](#docker-compose), for which I provided an [example](docker-compose.yaml) of. This is a desktop app that was forced inside of a container and it exposes a HTTP connection which makes you unable to configure following options:
@@ -99,7 +99,7 @@ We need both bus and device number so `--device=/dev/bus/usb/$BUS/$DEVICE` gives
 If you didn't read my [blog entry](https://blog.fajfer.org/2023/09/16/running-green-cell-ups-app-gcups-on-gnu-linux-server/) I would recommend scrolling just to the "Generating your own by-sequence" part. Basically you can mount the entire `/opt/gcups/` if you wanted but the only thing you really need is `/opt/gcups/db/gcups-rxdb-1-settings` which is actually a [LevelDB](https://github.com/google/leveldb) database.
 
 Example:
-`docker run --device=/dev/bus/usb/001/011 -p 0.0.0.0:8080:8080 -v /opt/gcups/db/gcups-rxdb-1-settings:/opt/gcups/db/gcups-rxdb-1-settings ghcr.io/fajfer/gcups:1.1.11`  
+`docker run --device=/dev/bus/usb/001/011 -p 0.0.0.0:8080:8080 -v /opt/gcups/db/gcups-rxdb-1-settings:/opt/gcups/db/gcups-rxdb-1-settings jlkde/gcups:1.1.11`
 
 There's no other way at this moment to change the password during runtime since I don't know how to properly manipulate password hash and salt and it doesn't really bother me.
 
@@ -110,7 +110,7 @@ version: '3'
 services:  
   gcups:
     container_name: gcups
-    image: ghcr.io/fajfer/gcups:1.1.11
+    image: jlkde/gcups:1.1.11
     ports:
       - '0.0.0.0:8085:8080'
     restart: unless-stopped
