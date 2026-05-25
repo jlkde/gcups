@@ -5,7 +5,7 @@ version: '3'
 services:  
   gcups:
     container_name: gcups
-    image: ghcr.io/fajfer/gcups:1.1.7
+    image: ghcr.io/fajfer/gcups:1.1.11
     ports:
       - '0.0.0.0:8085:8080'
     restart: unless-stopped
